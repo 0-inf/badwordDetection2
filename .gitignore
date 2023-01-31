@@ -1,3 +1,6 @@
+# 개인 컴퓨터 폴더 설정에 영향 안받도록
+desktop.ini
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
