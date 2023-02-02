@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 import time
 import NMwordDetection.filter1 as filter1
+import NMwordDetection.filter2 as filter2
 
 class word_detection():
   """
@@ -14,7 +15,7 @@ class word_detection():
     """
 
     self.word_list = [] # 찾을 단어 원본 리스트
-    self.filter_list = [filter1.filter1()] # 검사할 필터 리스트
+    self.filter_list = [filter1.filter1(), filter2.filter2()] # 검사할 필터 리스트
 
     return None
 
