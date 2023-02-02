@@ -2,7 +2,7 @@ from NMwordDetection.word_detection import word_detection
 
 test = word_detection()
 test.load_word_list(".\\words.txt")
-결과 = test.word_detect("ㅎTlqkf tlqkf qudtls qbdtls", 0.6)
+결과 = test.word_detect("ㅎTTTTlqkf tlqkf qudtls qbdtls", 0.6)
 #결과 가공해보자
 print(f'입력된 문자 : {결과["input"]}')
 print(f'======<{결과["filter0"]["name"]}>=====')
