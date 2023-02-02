@@ -1,7 +1,7 @@
 """단어 필터링 모듈입니다."""
 # -*- coding:utf-8 -*-
 import time
-
+import NMwordDetection.filter1 as filter1
 
 class word_detection():
   """
@@ -14,7 +14,7 @@ class word_detection():
     """
 
     self.word_list = [] # 찾을 단어 원본 리스트
-    self.filter_list = [] # 검사할 필터 리스트
+    self.filter_list = [filter1.filter1()] # 검사할 필터 리스트
 
     return None
 
@@ -35,7 +35,7 @@ class word_detection():
         #로 시작되는 줄은 주석임
         pass
       elif not line in result:
-        result.append(line)
+        result.append(line.strip())
     self.word_list = result
     return result
 
@@ -53,8 +53,8 @@ class word_detection():
       filter = self.filter_list[i]
       filter_detection_result = filter.detection(sentence, self.word_list, threshold)
       result[f'filter{i}'] = {
-                                'name':filter.get_name(),
-                                'description':filter.get_description(),
+                                'name':filter.name,
+                                'description':filter.description,
                                 'result': filter_detection_result
                               }
     result['run_time'] = time.time() - start_time

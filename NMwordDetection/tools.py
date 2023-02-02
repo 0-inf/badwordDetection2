@@ -27,6 +27,49 @@ def detach_word(word : str) -> list:
         # 종성이 존재하면
         result.append([KOREAN_LAST[aski % 28], i])
     else:
-      #한글이 아니면 그냥 추가
-      result.append([word[i], i])
+      #한글이 아니면
+      if word[i] != ' ': # 공백 제거
+        result.append([word[i], i])
+  return result
+
+def compare_text(sentence:list, words:list, base_layer:dict, threshold:float) -> list:
+  """
+  base_layer의 데이터를 기반으로 sentence에서 word와의 유사도가 threshold 이상인 부분을 찾아냅니다.
+
+  :param sentence: 토큰화가 된 문장입니다.
+  :param words: 토큰화가 된 단어 리스트입니다.
+  :param base_layer: 한글 자모를 비교할 때의 기준이 되는 데이터입니다.
+  :param threshold: 어느 정도 이상의 유사도를 가져야 할지 설정하는 0과 1사이의 실수값입니다.
+  :return: 결과를 리스트 형태로 반환합니다.
+  """
+  sentence_layer = []
+  for i in range(0,len(sentence)):
+    if sentence[i][0] in base_layer:
+      sentence_layer.append([base_layer[sentence[i][0]], sentence[i][1]])
+  for i in range(0, len(words)):
+    for j in range(0, len(words[i])):
+      if words[i][j] in base_layer:
+        words[i][j] = base_layer[words[i][j]]
+  result = []
+  temp = []
+  for index in range(0,len(words)):
+    word = words[index]
+    for i in range(0, len(sentence_layer)-len(word)+1):
+      similarity = 0
+      for j in range(0, len(word)):
+        most_sim_string_loc = None
+        for k in range(max(0, i-3), min(len(sentence_layer), i+len(word)+3)):
+          if word[j] // 10 == sentence_layer[k][0] // 10:
+            if most_sim_string_loc is None:
+              most_sim_string_loc = k
+            elif abs(k-(i+j)) < abs(most_sim_string_loc-(i+j)):
+              most_sim_string_loc = k
+        if most_sim_string_loc is not None:
+          similarity += 0.1 / pow(2, (abs(most_sim_string_loc-(i+j))))*(10-abs(word[j] - sentence_layer[most_sim_string_loc][0]))
+      similarity = similarity / len(word)
+      similarity = similarity ** (0.1**((len(word)-3)/10)+1.3)
+      if similarity > threshold:
+        if sentence_layer[i][1] not in temp:
+          result.append([sentence_layer[i][1], sentence_layer[i+len(word)-1][1], index, similarity])
+          temp.append(sentence_layer[i][1])
   return result
