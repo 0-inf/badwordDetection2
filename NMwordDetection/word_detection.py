@@ -3,6 +3,7 @@
 import time
 import NMwordDetection.filter1 as filter1
 import NMwordDetection.filter2 as filter2
+import NMwordDetection.filter3 as filter3
 
 class word_detection():
   """
@@ -15,7 +16,7 @@ class word_detection():
     """
 
     self.word_list = [] # 찾을 단어 원본 리스트
-    self.filter_list = [filter1.filter1(), filter2.filter2()] # 검사할 필터 리스트
+    self.filter_list = [filter1.filter1(), filter2.filter2(), filter3.filter3()] # 검사할 필터 리스트
 
     return None
 
@@ -48,6 +49,7 @@ class word_detection():
     :param threshold: 민감도를 설정합니다. 0부터 1 사이의 실수이며 1에 가까울수록 유사도가 더 큰 것들만 찾습니다.
     :return: 결과입니다. 딕셔너리 형태로 각 필터에서 감지된 부분과 그 유사도를 가지고 있습니다.
     """
+    self.filter_list[2].setup(sentence, self.word_list)
     start_time = time.time()
     result = {'input':sentence}
     for i in range(len(self.filter_list)):
