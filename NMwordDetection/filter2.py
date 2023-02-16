@@ -1,4 +1,4 @@
-"""한/영 키보드를 바꾸어 치는 욕설을 잡기 위한 필터입니다"""
+"""한글 단어를 영어 발음으로 쓰는 경우를 잡아내기 위한 필터입니다."""
 import NMwordDetection.tools as tools
 
 class filter2():
