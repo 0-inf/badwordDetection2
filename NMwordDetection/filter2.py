@@ -17,7 +17,7 @@ class filter2():
 
   def detection(self, sentence:str, words:list, threshold:int) -> dict:
     """
-    filter1을 이용하여 입력된 단어 리스트를 찾는 함수입니다.
+    filter2을 이용하여 입력된 단어 리스트를 찾는 함수입니다.
 
     :param sentence: 문자열 타입으로 단어들을 찾을 문장입니다.
     :param words: 찾을 단어들의 리스트입니다.

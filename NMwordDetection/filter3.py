@@ -65,7 +65,7 @@ class filter3():
     :param sentence: 문자열 타입으로 단어들을 찾을 문장입니다.
     :param words: 찾을 단어들의 리스트입니다.
     :param threshold: 어느정도 이상의 유사도를 가져야 해당 단어라고 판별할지 값입니다.
-    :return: 결과를 잘 정리하여 딕셔너리 형태로 반환합니다.
+    :return: 결과를 잘 정리하여 리스트 형태로 반환합니다.
     """
     print(self.sentence_image_data)
     result = []

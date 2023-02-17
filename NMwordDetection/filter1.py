@@ -24,14 +24,14 @@ class filter1():
                        'ㅕ':311.5,'ㅑ':320.5,'ㅛ':312.5,'ㅠ':302.5,'ㅒ':320.5,'ㅖ':310.5,'ㅢ':300.5,'ㅘ':321.5,'ㅙ':320.5,'ㅝ':311.5,'ㅞ':310.5}
     return None
 
-  def detection(self, sentence:str, words:list, threshold:int) -> dict:
+  def detection(self, sentence:str, words:list, threshold:int) -> list:
     """
     filter1을 이용하여 입력된 단어 리스트를 찾는 함수입니다.
 
     :param sentence: 문자열 타입으로 단어들을 찾을 문장입니다.
     :param words: 찾을 단어들의 리스트입니다.
     :param threshold: 어느정도 이상의 유사도를 가져야 해당 단어라고 판별할지 값입니다.
-    :return: 결과를 잘 정리하여 딕셔너리 형태로 반환합니다.
+    :return: 결과를 잘 정리하여 리스트 형태로 반환합니다.
     """
     tokenized_sentence = tools.detach_word(sentence)
     tokenized_words_list = []
