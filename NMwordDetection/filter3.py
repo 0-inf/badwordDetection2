@@ -67,7 +67,6 @@ class filter3():
     :param threshold: 어느정도 이상의 유사도를 가져야 해당 단어라고 판별할지 값입니다.
     :return: 결과를 잘 정리하여 리스트 형태로 반환합니다.
     """
-    print(self.sentence_image_data)
     result = []
     raw_image = cv2.imread(f"{getcwd()}\\NMwordDetection\\temp\\sentence.png")
     image = cv2.cvtColor(raw_image, cv2.COLOR_BGR2GRAY)
@@ -76,8 +75,8 @@ class filter3():
       template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
       template = cv2.Canny(template, 50, 200)
       (tH, tW) = template.shape[:2]
-      #for scale in linspace(0.2,1.0,20)[::-1]:
-      for scale in range(1,2):
+      for scale in linspace(0.2,1.0,20)[::-1]:
+      #for scale in range(1,2):
         resized = cv2.resize(image, (int(image.shape[1] * scale), int(image.shape[0] * scale)))
         if resized.shape[0] < tH or resized.shape[1] < tW:
           break
