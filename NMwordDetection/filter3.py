@@ -21,10 +21,11 @@ def text_to_image(name:str, text:str) -> list:
     line_draw_x = -font_file.getbbox(line)[0]
     for letter in line:
       draw.text((line_draw_x, line_draw_y), letter, "black",font=font_file)
-      data.append((line_draw_x, data_y, line_draw_x + int(font_file.getlength(letter)), data_y + int(font_file.getbbox(letter)[3] - font_file.getbbox(letter)[1])))
+      data.append((line_draw_x, data_y, line_draw_x + int(font_file.getlength(letter)), data_y + int(font_file.getbbox(line)[3] - font_file.getbbox(line)[1])))
       line_draw_x += int(font_file.getlength(letter))
     line_draw_y += (font_file.getbbox(line)[3] - font_file.getbbox(line)[1])
     data_y += (font_file.getbbox(line)[3] - font_file.getbbox(line)[1])
+    data.append((-100,-100,-100,-100))
   canvas.save(f"{getcwd()}\\NMwordDetection\\temp\\{name}.png","PNG")
   return data
 
@@ -33,6 +34,9 @@ def image_modify(image:str, data:list) -> list:
   new_image = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)[1]
   cv2.imwrite(f"{getcwd()}\\NMwordDetection\\temp\\{image}.png", new_image)
   return data
+
+def make_better(x : float) -> float:
+  return (-2*x*x+3*x)*x
 
 class filter3():
 
@@ -49,12 +53,12 @@ class filter3():
     """
     Image필터를 세팅합니다. sentence와 words의 이미지를 만들고 후처리를 한 후 데이터를 반환합니다.
     """
-    self.words_image_data = text_to_image("sentence", sentence)
+    self.sentence_image_data = text_to_image("sentence", sentence)
     for i in range(0,len(words)):
-      self.words_image_data.append(text_to_image(i, words[i]))
+      text_to_image(i, words[i])
     return None
 
-  def detection(self, sentence:str, words:list, threshold:int) -> dict:
+  def detection(self, sentence:str, words:list, threshold:int) -> list:
     """
     filter3을 이용하여 입력된 단어 리스트를 찾는 함수입니다.
 
@@ -63,6 +67,8 @@ class filter3():
     :param threshold: 어느정도 이상의 유사도를 가져야 해당 단어라고 판별할지 값입니다.
     :return: 결과를 잘 정리하여 딕셔너리 형태로 반환합니다.
     """
+    print(self.sentence_image_data)
+    result = []
     raw_image = cv2.imread(f"{getcwd()}\\NMwordDetection\\temp\\sentence.png")
     image = cv2.cvtColor(raw_image, cv2.COLOR_BGR2GRAY)
     for i in range(0,len(words)):
@@ -70,17 +76,25 @@ class filter3():
       template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
       template = cv2.Canny(template, 50, 200)
       (tH, tW) = template.shape[:2]
-      for scale in linspace(0.2,1.0,20)[::-1]:
+      #for scale in linspace(0.2,1.0,20)[::-1]:
+      for scale in range(1,2):
         resized = cv2.resize(image, (int(image.shape[1] * scale), int(image.shape[0] * scale)))
         if resized.shape[0] < tH or resized.shape[1] < tW:
           break
         edged = cv2.Canny(resized, 50, 200)
         res = cv2.matchTemplate(edged, template, cv2.TM_CCOEFF_NORMED)
-        loc = where(res >= threshold)
-
+        loc = where(make_better(res) >= threshold)
+        k = 0
         for pt in zip(*loc[::-1]):
-          cv2.rectangle(raw_image, (int(pt[0]/scale),int(pt[1]/scale)), (int(pt[0]/scale) + tW, int(pt[1]/scale) + tH), (0,0,255), 2)
-    cv2.imshow("Image", raw_image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-    return None
+          a = 0
+          start = 0
+          end = 0
+          while a < len(self.sentence_image_data):
+            if self.sentence_image_data[a][0] <= (pt[0]/scale) and self.sentence_image_data[a][1] -0.1 < (pt[1]/scale) and self.sentence_image_data[a][2] > (pt[0]/scale) and self.sentence_image_data[a][3] >= (pt[1]/scale):
+              start = a
+            elif self.sentence_image_data[a][0] <= (pt[0]/scale) + tW and self.sentence_image_data[a][1] < (pt[1]/scale) + tH and self.sentence_image_data[a][2] >= (pt[0]/scale) + tW and self.sentence_image_data[a][3] >= (pt[1]/scale) + tH:
+              end = a
+            a+=1
+          result.append((start, end,i,make_better(res[loc][k])))
+          k+=1
+    return result
