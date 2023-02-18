@@ -2,6 +2,8 @@
 
 만들다가 실패한 [욕설탐지모듈](https://github.com/seolmango/KoreanBadwordDetection)의 아이디어를 바탕으로 새롭게 만드는 욕설탐지모듈입니다.
 
+![시각화한 사진](https://github.com/seolmango/badwordDetection2/blob/main/example.png)
+
 ## 개발 목표
 
 욕설을 탐지하는 방법은 크게 두가지가 있습니다. 많은 욕설 채팅 데이터를 이용해서 머신러닝을 통해 욕설을 분류하는 방법, 그리고 단순히 금칙어 리스트안에 있는 단어가 글에 존재하는지 확인하는 방법이 있죠.
