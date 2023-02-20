@@ -9,7 +9,7 @@ KOREAN_LAST = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ',
                 'ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ',
                 'ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ']
 
-def detach_word(word : str, option : dict = {"repeat":True}) -> list:
+def detach_word(word : str, option : dict = {"repeat":True, "pro2del":False}) -> list:
   """
   입력된 문자열 중 한국어를 초성, 중성, 종성으로 분해하는 함수입니다.
 
@@ -25,7 +25,10 @@ def detach_word(word : str, option : dict = {"repeat":True}) -> list:
       aski = ord(word[i]) - 44032
       if -1< aski and aski < 11173:
         # 한글이면
-        result.append([KOREAN_FIRST[aski // 588], i])
+        if option['pro2del'] and KOREAN_FIRST[aski // 588] in ['ㅇ']:
+          pass
+        else:
+          result.append([KOREAN_FIRST[aski // 588], i])
         result.append([KOREAN_MIDDLE[(aski // 28) % 21], i])
         if not aski % 28 == 0:
           # 종성이 존재하면

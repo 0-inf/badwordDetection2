@@ -27,7 +27,7 @@ class filter2():
     # 욕설 처리
     tokenized_words_list = []
     for i in words:
-      temp = tools.detach_word(i)
+      temp = tools.detach_word(i, {"repeat":True,"pro2del":True})
       for j in range(0, len(temp)):
         temp[j] = temp[j][0]
       tokenized_words_list.append(temp)
@@ -35,10 +35,10 @@ class filter2():
     # sentence 전처리
     one = {'a':'ㅏ', 'o':'ㅗ', 'u':'ㅜ', 'i':'ㅣ', 'e':'ㅔ', 'g':'ㄱ', 'k':'ㅋ',
            'd':'ㄷ', 't':'ㅌ', 'b':'ㅂ', 'p':'ㅍ', 'j':'ㅈ', 's':'ㅅ', 'h':'ㅎ',
-           'n': 'ㄴ', 'm': 'ㅁ', 'r': 'ㄹ', 'l': 'ㄹ', 'c':'씨'}
+           'n':'ㄴ', 'm':'ㅁ', 'r':'ㄹ', 'l':'ㄹ', 'c':'씨', '8':'팔', '2':'ㅣ'}
     two = {'ng':'ㅇㅇ', 'ch':'ㅊㅊ', 'kk':'ㄲㄲ', 'tt':'ㄸㄸ', 'pp':'ㅃㅃ', 'ss':'ㅆㅆ', 'jj':'ㅉㅉ',
            'eo':'ㅓㅓ', 'eu':'ㅡㅡ', 'ae':'ㅐㅐ', 'oe':'ㅚㅚ', 'wi':'ㅟㅟ', 'ui':'ㅢㅢ', 'ya':'ㅑㅑ',
-           'yo':'ㅛㅛ', 'yu':'ㅠㅠ', 'wa':'ㅘㅘ', 'wo':'ㅟㅟ', 'ye':'ㅖㅖ', 'we':'ㅞㅞ'}
+           'yo':'ㅛㅛ', 'yu':'ㅠㅠ', 'wa':'ㅘㅘ', 'wo':'ㅟㅟ', 'ye':'ㅖㅖ', 'we':'ㅞㅞ', '18':'십팔'}
     three = {'yeo':'ㅕㅕㅕ', 'yae':'ㅐㅐㅐ', 'wae':'ㅙㅙㅙ'}
     sentence = sentence.lower()
     for i in range(0, len(sentence)):
@@ -50,5 +50,5 @@ class filter2():
           sentence = sentence[:i]+two[sentence[i:i+2]]+sentence[i+2:]
       if sentence[i] in one:
         sentence = sentence[:i]+one[sentence[i]]+sentence[i+1:]
-    tokenized_sentence = tools.detach_word(sentence)
+    tokenized_sentence = tools.detach_word(sentence, {"repeat":True,"pro2del":True})
     return tools.compare_text(tokenized_sentence, tokenized_words_list, self.base_layer, 0.6)
