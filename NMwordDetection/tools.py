@@ -80,3 +80,6 @@ def compare_text(sentence:list, words:list, base_layer:dict, threshold:float) ->
           result.append([sentence_layer[i][1], sentence_layer[i+len(word)-1][1], index, similarity])
           temp.append(sentence_layer[i][1])
   return result
+
+def select_fontfile(str:str):
+  return 0
