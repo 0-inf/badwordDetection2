@@ -11,6 +11,16 @@ font_list_raw = {
   "KR":"NotoSansKR.otf",
   "SC":"NotoSansSC.otf",
   "TC":"NotoSansTC.otf",
+  "Armenian":"NotoSansArmenian.ttf",
+  "Arabic":"NotoSansArabic.ttf",
+  "Hebrew":"NotoSansHebrew.ttf",
+  "Syriac":"NotoSansSyriac.ttf",
+  "Thaana":"NotoSansThaana.ttf",
+  "Devanagari":"NotoSansDevanagari.ttf",
+  "Bengali":"NotoSansBengali.ttf",
+  "Gurmukhi":"NotoSansGurmukhi.ttf",
+  "Gujarati":"NotoSansGujarati.ttf",
+  "Oriya":"NotoSansOriya.ttf",
 }
 font_list = {}
 for key, value in font_list_raw.items():

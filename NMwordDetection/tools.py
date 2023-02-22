@@ -109,6 +109,36 @@ def select_fontfile(str:str):
     return "TC"
   elif uni >= 131072 and uni <= 216895:
     return "TC"
+  # Armenian
+  elif uni > 1328 and uni <= 1423:
+    return "Armenian"
+  # Hebrew
+  elif uni >= 1424 and uni <= 1535:
+    return "Hebrew"
+  # Arabic
+  elif uni >= 1536 and uni <= 1791:
+    return "Arabic"
+  # Syriac
+  elif uni >= 1792 and uni <= 1871:
+    return "Syriac"
+  # Thaana
+  elif uni >= 1920 and uni <= 1983:
+    return "Thaana"
+  # Devanagari
+  elif uni >= 2304 and uni <= 2431:
+    return "Devanagari"
+  # Bengali
+  elif uni >= 2432 and uni <= 2559:
+    return "Bengali"
+  # Gurmukhi
+  elif uni >= 2560 and uni <= 2687:
+    return "Gurmukhi"
+  # Gujarati
+  elif uni >= 2688 and uni <= 2815:
+    return "Gujarati"
+  # Oriya
+  elif uni >= 2816 and uni <= 2943:
+    return "Oriya"
   # else
   else:
     return "default"
