@@ -1,6 +1,5 @@
 from NMwordDetection.word_detection import word_detection
 import cv2
-import numpy
 
 test = word_detection()
 test.load_word_list(".\\words.txt")
