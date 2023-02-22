@@ -83,32 +83,44 @@ def compare_text(sentence:list, words:list, base_layer:dict, threshold:float) ->
 
 def select_fontfile(str:str):
   uni = ord(str)
-  # JP - 1
+  # JP
   if uni >= 12352 and uni <= 12447:
-    return 1
+    return "JP"
   elif uni >= 12448 and uni <= 12543:
-    return 1
+    return "JP"
   elif uni >= 12784 and uni <= 12799:
-    return 1
-  # KO - 2
+    return "JP"
+  # KR
   elif uni >= 4352 and uni <= 4607:
-    return 2
+    return "KR"
   elif uni >= 12593 and uni <= 12687:
-    return 2
+    return "KR"
   elif uni >= 44032 and uni <= 55203:
-    return 2
+    return "KR"
   elif uni >= 43072 and uni <= 43135:
-    return 2
+    return "KR"
   elif uni >= 43360 and uni <= 43391:
-    return 2
-  # SC - 3
+    return "KR"
+  # SC
   elif uni >= 19968 and uni <= 40895:
-    return 3
-  # TC - 4
+    return "SC"
+  # TC
   elif uni >= 63744 and uni <= 64031:
-    return 4
+    return "TC"
   elif uni >= 131072 and uni <= 216895:
-    return 4
-  # else - 0
+    return "TC"
+  # Bamum
+  elif uni >= 42656 and uni <= 42751:
+    return "Bamum"
+  # Khmer
+  elif uni >= 6016 and uni <= 6143:
+    return "Khmer"
+  # Mongolian
+  elif uni >= 6144 and uni <= 6319:
+    return "Mongolian"
+  # Tagbanwa
+  elif uni >= 5984 and uni <= 6015:
+    return "Tagbanwa"
+  # else
   else:
-    return 0
+    return "default"

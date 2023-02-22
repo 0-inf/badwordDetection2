@@ -4,17 +4,21 @@ from numpy import all, array, zeros, linspace, where, ones
 import cv2
 from NMwordDetection.tools import select_fontfile
 
-font_list_raw = [
-  # 순서 변경 금지!!
-  "NotoSans.ttf",
-  "NotoSansJP.otf",
-  "NotoSansKR.otf",
-  "NotoSansSC.otf",
-  "NotoSansTC.otf"
-]
-font_list = []
-for i in font_list_raw:
-  font_list.append(ImageFont.truetype(f"{getcwd()}\\NMwordDetection\\font\\{i}", 45))
+font_list_raw = {
+  # 이름 변경 금지!!
+  "default":"NotoSans.ttf",
+  "JP":"NotoSansJP.otf",
+  "KR":"NotoSansKR.otf",
+  "SC":"NotoSansSC.otf",
+  "TC":"NotoSansTC.otf",
+  "Bamun":"NotoSansBamum.ttf",
+  "Khmer":"NotoSansKhmer.ttf",
+  "Mongolian":"NotoSansMongolian.ttf",
+  "Tagbanwa":"NotoSansTagbanwa.ttf",
+}
+font_list = {}
+for key, value in font_list_raw.items():
+  font_list[key]=ImageFont.truetype(f"{getcwd()}\\NMwordDetection\\font\\{value}", 45)
 
 def text_to_image(name:str, text:str) -> list:
   lines = text.split("\n")
