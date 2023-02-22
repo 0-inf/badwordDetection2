@@ -163,8 +163,8 @@ class filter3():
       template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
       template = cv2.Canny(template, 50, 200)
       (tH, tW) = template.shape[:2]
-      for scale in linspace(0.2,1.0,20)[::-1]:
-      #for scale in range(1,2):
+      #for scale in linspace(0.2,1.0,20)[::-1]:
+      for scale in range(1,2):
         resized = cv2.resize(image, (int(image.shape[1] * scale), int(image.shape[0] * scale)))
         if resized.shape[0] < tH or resized.shape[1] < tW:
           break
