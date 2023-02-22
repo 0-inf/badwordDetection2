@@ -3,7 +3,7 @@ import cv2
 
 test = word_detection()
 test.load_word_list(".\\words.txt")
-결과 = test.word_detect("이러면 시각화와 욕설 탐지 모두 가능하겠지 씨발 씨이발\n슈발 씹알 병신 븅신 멍충이 멍층이", 0.1)
+결과 = test.word_detect("Project Noto: 한국어만 감지할 순 없으니깐요\n유니코드의 모든 문자를...", 0.1)
 #결과 가공해보자
 data = []
 for i in range(len(결과['input'])):

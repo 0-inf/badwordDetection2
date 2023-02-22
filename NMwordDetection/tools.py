@@ -109,18 +109,6 @@ def select_fontfile(str:str):
     return "TC"
   elif uni >= 131072 and uni <= 216895:
     return "TC"
-  # Bamum
-  elif uni >= 42656 and uni <= 42751:
-    return "Bamum"
-  # Khmer
-  elif uni >= 6016 and uni <= 6143:
-    return "Khmer"
-  # Mongolian
-  elif uni >= 6144 and uni <= 6319:
-    return "Mongolian"
-  # Tagbanwa
-  elif uni >= 5984 and uni <= 6015:
-    return "Tagbanwa"
   # else
   else:
     return "default"
