@@ -82,4 +82,33 @@ def compare_text(sentence:list, words:list, base_layer:dict, threshold:float) ->
   return result
 
 def select_fontfile(str:str):
-  return 0
+  uni = ord(str)
+  # JP - 1
+  if uni >= 12352 and uni <= 12447:
+    return 1
+  elif uni >= 12448 and uni <= 12543:
+    return 1
+  elif uni >= 12784 and uni <= 12799:
+    return 1
+  # KO - 2
+  elif uni >= 4352 and uni <= 4607:
+    return 2
+  elif uni >= 12593 and uni <= 12687:
+    return 2
+  elif uni >= 44032 and uni <= 55203:
+    return 2
+  elif uni >= 43072 and uni <= 43135:
+    return 2
+  elif uni >= 43360 and uni <= 43391:
+    return 2
+  # SC - 3
+  elif uni >= 19968 and uni <= 40895:
+    return 3
+  # TC - 4
+  elif uni >= 63744 and uni <= 64031:
+    return 4
+  elif uni >= 131072 and uni <= 216895:
+    return 4
+  # else - 0
+  else:
+    return 0
