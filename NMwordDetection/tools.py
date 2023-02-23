@@ -80,3 +80,119 @@ def compare_text(sentence:list, words:list, base_layer:dict, threshold:float) ->
           result.append([sentence_layer[i][1], sentence_layer[i+len(word)-1][1], index, similarity])
           temp.append(sentence_layer[i][1])
   return result
+
+def select_fontfile(str:str):
+  uni = ord(str)
+  # JP
+  if uni >= 12352 and uni <= 12447:
+    return "JP"
+  elif uni >= 12448 and uni <= 12543:
+    return "JP"
+  elif uni >= 12784 and uni <= 12799:
+    return "JP"
+  # KR
+  elif uni >= 4352 and uni <= 4607:
+    return "KR"
+  elif uni >= 12593 and uni <= 12687:
+    return "KR"
+  elif uni >= 44032 and uni <= 55203:
+    return "KR"
+  elif uni >= 43072 and uni <= 43135:
+    return "KR"
+  elif uni >= 43360 and uni <= 43391:
+    return "KR"
+  # SC
+  elif uni >= 19968 and uni <= 40895:
+    return "SC"
+  # TC
+  elif uni >= 63744 and uni <= 64031:
+    return "TC"
+  elif uni >= 131072 and uni <= 216895:
+    return "TC"
+  # Armenian
+  elif uni > 1328 and uni <= 1423:
+    return "Armenian"
+  # Hebrew
+  elif uni >= 1424 and uni <= 1535:
+    return "Hebrew"
+  # Arabic
+  elif uni >= 1536 and uni <= 1791:
+    return "Arabic"
+  # Syriac
+  elif uni >= 1792 and uni <= 1871:
+    return "Syriac"
+  # Thaana
+  elif uni >= 1920 and uni <= 1983:
+    return "Thaana"
+  # Devanagari
+  elif uni >= 2304 and uni <= 2431:
+    return "Devanagari"
+  # Bengali
+  elif uni >= 2432 and uni <= 2559:
+    return "Bengali"
+  # Gurmukhi
+  elif uni >= 2560 and uni <= 2687:
+    return "Gurmukhi"
+  # Gujarati
+  elif uni >= 2688 and uni <= 2815:
+    return "Gujarati"
+  # Oriya
+  elif uni >= 2816 and uni <= 2943:
+    return "Oriya"
+  # Tamil
+  elif uni >= 2944 and uni <= 3071:
+    return "Tamil"
+  # Telugu
+  elif uni >= 3072 and uni <= 3199:
+    return "Telugu"
+  # Kannada
+  elif uni >= 3200 and uni <= 3327:
+    return "Kannada"
+  # Malayalam
+  elif uni >= 3328 and uni <= 3455:
+    return "Malayalam"
+  # Sinhala
+  elif uni >= 3456 and uni <= 3583:
+    return "Sinhala"
+  # Thai
+  elif uni >= 3584 and uni <= 3711:
+    return "Thai"
+  # Lao
+  elif uni >= 3712 and uni <= 3839:
+    return "Lao"
+  # Myanmar
+  elif uni >= 4096 and uni <= 4255:
+    return "Myanmar"
+  # Georgian
+  elif uni >= 4256 and uni <= 4351:
+    return "Georgian"
+  # Ethiopic
+  elif uni >= 4608 and uni <= 4991:
+    return "Ethiopic"
+  # Cherokee
+  elif uni >= 5024 and uni <= 5119:
+    return "Cherokee"
+  # Canadian Aboriginal
+  elif uni >= 5120 and uni <= 5759:
+    return "CanadianAboriginal"
+  # Ogham
+  elif uni >= 5760 and uni <= 5791:
+    return "Ogham"
+  # Runic
+  elif uni >= 5792 and uni <= 5887:
+    return "Runic"
+  # Khmer
+  elif uni >= 6016 and uni <= 6143:
+    return "Khmer"
+  # Mongolian
+  elif uni >= 6144 and uni <= 6319:
+    return "Mongolian"
+  # Symbols
+  if uni >= 8544 and uni <= 9450:
+    return "Symbols"
+  # Symbol2
+  elif uni >= 9632 and uni <= 10495:
+    return "Symbol2"
+  # else
+  else:
+    return "default"

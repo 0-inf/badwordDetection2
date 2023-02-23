@@ -2,7 +2,7 @@
 
 만들다가 실패한 [욕설탐지모듈](https://github.com/seolmango/KoreanBadwordDetection)의 아이디어를 바탕으로 새롭게 만드는 욕설탐지모듈입니다.
 
-![시각화한 사진](https://github.com/seolmango/badwordDetection2/blob/main/example.png)
+![시각화한 사진](https://github.com/seolmango/badwordDetection2/blob/main/examples/example.png)
 
 ## 개발 목표
 
@@ -20,7 +20,7 @@
 
 ### 1. KoEnKeyBoFilter(filter1)
 
-한국어를 영어 키보드 상태로 치는 욕설을 잡아내는 필터입니다. q는 ㅂ, Q는 ㅃ로 치환시키는 방법으로 탐지합니다. 예를 들어 'Tlqkf'이 입력되면 'ㅆㅣㅂㅏㄹ'로 치환하여 욕설 탐색을 시도합니다. 아래는 치환을 위해 사용하는 데이터입니다.
+한국어를 영어 키보드 상태로 치는 욕설을 잡아내는 필터입니다. q는 ㅂ, Q는 ㅃ로 치환시키는 방법으로 탐지합니다. 예를 들어 'Tlqkf'이 입력되면 'ㅆㅣㅂㅏㄹ'로 치환하여 욕설 탐색을 시도합니다. 아래는 치환을 위해 사용하는 데이터 예시입니다.
 
 ```python
 self.key_change_data = {'q': 'ㅂ', 'Q': 'ㅃ', 'w': 'ㅈ', 'W': 'ㅉ', 'e': 'ㄷ', 'E': 'ㄸ',
@@ -36,7 +36,7 @@ self.key_change_data = {'q': 'ㅂ', 'Q': 'ㅃ', 'w': 'ㅈ', 'W': 'ㅉ', 'e': '�
 
 ### 2. EnProFilter(filter2)
 
-한국어를 영어 발음으로 적는 욕설을 잡아내는 필터입니다. 발음법은 표준 발음법의 외국어 표기법을 참고하였습니다. 위의 filter1와 같이 치환시키는 방법으로 작동합니다. 예를 들어 'sibal'이 입력되면 'ㅆㅣㅂㅏㄹ'로 치환합니다. 아래는 해당 데이터입니다.
+한국어를 영어 발음으로 적는 욕설을 잡아내는 필터입니다. 발음법은 표준 발음법의 외국어 표기법을 참고하였습니다. 위의 filter1와 같이 치환시키는 방법으로 작동합니다. 예를 들어 'sibal'이 입력되면 'ㅆㅣㅂㅏㄹ'로 치환합니다. 아래는 해당 데이터 예시입니다.
 
 ```python
 one = {'a':'ㅏ', 'o':'ㅗ', 'u':'ㅜ', 'i':'ㅣ', 'e':'ㅔ', 'g':'ㄱ', 'k':'ㅋ',
@@ -56,13 +56,15 @@ three = {'yeo':'ㅕㅕㅕ', 'yae':'ㅐㅐㅐ', 'wae':'ㅙㅙㅙ'}
 
 이 필터는 입력된 문자열을 사진으로 저장하여 욕설 사진과 템플릿 매칭 시켜서 찾는 방법입니다. 예를 들어
 
-![문자열 사진](https://github.com/seolmango/badwordDetection2/blob/main/sentence.png)
+![문자열 사진](https://github.com/seolmango/badwordDetection2/blob/main/examples/sentence.png)
 
 와 같이 문자열을 저장하고 
 
-![욕설 사진](https://github.com/seolmango/badwordDetection2/blob/main/0.png)
+![욕설 사진](https://github.com/seolmango/badwordDetection2/blob/main/examples/0.png)
 
-와 같이 욕설을 저장하여 사진으로 매칭을 시도합니다. 폰트는 현재 NotoSans-CJK를 사용하고 있습니다.
+와 같이 욕설을 저장하여 사진으로 매칭을 시도합니다. 폰트는 현재 NotoSans를 사용하고 있습니다. 각각의 글자에 따른 가장 적합한 폰트를 찾아 이미지화를 시도하여 꽤 넓은 범위의 유니코드 범위를 커버할 수 있습니다. 폰트 파일 리스트는 font 폴더를 확인하세요.
+
+[font폴더 url](https://github.com/seolmango/badwordDetection2/blob/main/NMwordDetection/font)
 
 이 필터는 반드시 opencv가 설치되어 있어야합니다. 또한, 이 모듈이 저장된 경로에 한글이 있으면 opencv의 문제로 작동이 되지 않습니다.
 

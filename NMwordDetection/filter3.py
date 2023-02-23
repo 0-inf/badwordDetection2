@@ -2,31 +2,91 @@ from PIL import Image, ImageDraw, ImageFont
 from os import getcwd
 from numpy import all, array, zeros, linspace, where, ones
 import cv2
+from NMwordDetection.tools import select_fontfile
 
-font_file = ImageFont.truetype(f"{getcwd()}\\NMwordDetection\\font\\NotoSansCJK.otf", 45)
+font_list_raw = {
+  # 이름 변경 금지!!
+  "default":"NotoSans.ttf",
+  "JP":"NotoSansJP.otf",
+  "KR":"NotoSansKR.otf",
+  "SC":"NotoSansSC.otf",
+  "TC":"NotoSansTC.otf",
+  "Armenian":"NotoSansArmenian.ttf",
+  "Arabic":"NotoSansArabic.ttf",
+  "Hebrew":"NotoSansHebrew.ttf",
+  "Syriac":"NotoSansSyriac.ttf",
+  "Thaana":"NotoSansThaana.ttf",
+  "Devanagari":"NotoSansDevanagari.ttf",
+  "Bengali":"NotoSansBengali.ttf",
+  "Gurmukhi":"NotoSansGurmukhi.ttf",
+  "Gujarati":"NotoSansGujarati.ttf",
+  "Oriya":"NotoSansOriya.ttf",
+  "Tamil":"NotoSansTamil.ttf",
+  "Telugu":"NotoSansTelugu.ttf",
+  "Kannada":"NotoSansKannada.ttf",
+  "Malayalam":"NotoSansMalayalam.ttf",
+  "Sinhala":"NotoSansSinhala.ttf",
+  "Thai":"NotoSansThai.ttf",
+  "Lao":"NotoSansLao.ttf",
+  "Myanmar":"NotoSansMyanmar.ttf",
+  "Georgian":"NotoSansGeorgian.ttf",
+  "Ethiopic":"NotoSansEthiopic.ttf",
+  "Cherokee":"NotoSansCherokee.ttf",
+  "CanadianAboriginal":"NotoSansCanadianAboriginal.ttf",
+  "Ogham":"NotoSansOgham.ttf",
+  "Runic":"NotoSansRunic.ttf",
+  "Khmer":"NotoSansKhmer.ttf",
+  "Mongolian":"NotoSansMongolian.ttf",
+  "Symbols":"NotoSansSymbols.ttf",
+  "Symbol2":"NotoSansSymbols2.ttf",
+}
+font_list = {}
+for key, value in font_list_raw.items():
+  font_list[key]=ImageFont.truetype(f"{getcwd()}\\NMwordDetection\\font\\{value}", 45)
 
 def text_to_image(name:str, text:str) -> list:
   lines = text.split("\n")
-  data = []
-  image_width = 0
-  image_height = 0
-  for line in lines:
-    image_width = max(image_width, font_file.getlength(line))
-    image_height += (font_file.getbbox(line)[3] - font_file.getbbox(line)[1])
-  canvas = Image.new("RGB", (int(image_width), int(image_height)), "white")
-  draw = ImageDraw.Draw(canvas)
-  line_draw_y = -font_file.getbbox(lines[0])[1]
-  data_y = 0
-  for line in lines:
-    line_draw_x = -font_file.getbbox(line)[0]
-    for letter in line:
-      draw.text((line_draw_x, line_draw_y), letter, "black",font=font_file)
-      data.append((line_draw_x, data_y, line_draw_x + int(font_file.getlength(letter)), data_y + int(font_file.getbbox(line)[3] - font_file.getbbox(line)[1])))
-      line_draw_x += int(font_file.getlength(letter))
-    line_draw_y += (font_file.getbbox(line)[3] - font_file.getbbox(line)[1])
-    data_y += (font_file.getbbox(line)[3] - font_file.getbbox(line)[1])
+  data = [] # data of location of each char in text [x1, y1, x2, y2], if char is \n, [-100,-100,-100,-100]
+  image_width = 0 # width of image
+  image_height = 0 # height of image
+  line_height = [] # height of line(Most biggest height of char in line)
+  draw_x = [] # x location of each line
+  draw_y = [] # y location of each line
+  for i in range(len(lines)):
+    line = lines[i]
+    line_width = 0 # width of line
+    line_height.append(0) # height of line
+    line_draw_x = [] # x location of each char in line
+    line_draw_y = [] # y location of each char in line
+    for j in range(len(line)):
+      char = line[j]
+      font = font_list[select_fontfile(char)]
+      box = font.getbbox(char)
+      line_height[i] = max(line_height[i], box[3]-box[1])
+    for j in range(len(line)):
+      char = line[j]
+      font = font_list[select_fontfile(char)]
+      box = font.getbbox(char)
+      data.append((line_width, image_height, line_width+box[2]-box[0], image_height+line_height[i]))
+      line_width += box[2]-box[0]
+      if j == 0:
+        line_draw_x.append(-box[0])
+      line_draw_x.append(line_draw_x[-1]+box[2]-box[0])
+      line_draw_y.append(image_height+line_height[i]-box[3])
+    image_width = max(image_width, line_width)
+    image_height += line_height[i]
+    draw_x.append(line_draw_x)
+    draw_y.append(line_draw_y)
     data.append((-100,-100,-100,-100))
-  canvas.save(f"{getcwd()}\\NMwordDetection\\temp\\{name}.png","PNG")
+  image = Image.new("RGB", (image_width, image_height), (255,255,255))
+  draw = ImageDraw.Draw(image)
+  for i in range(len(lines)):
+    line = lines[i]
+    for j in range(len(line)):
+      char = line[j]
+      font = font_list[select_fontfile(char)]
+      draw.text((draw_x[i][j], draw_y[i][j]), char, font=font, fill=(0,0,0))
+  image.save(f"{getcwd()}\\NMwordDetection\\temp\\{name}.png")
   return data
 
 def image_modify(image:str, data:list = []) -> list:
@@ -131,8 +191,8 @@ class filter3():
       template = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
       template = cv2.Canny(template, 50, 200)
       (tH, tW) = template.shape[:2]
-      for scale in linspace(0.2,1.0,20)[::-1]:
-      #for scale in range(1,2):
+      #for scale in linspace(0.2,1.0,20)[::-1]:
+      for scale in range(1,2):
         resized = cv2.resize(image, (int(image.shape[1] * scale), int(image.shape[0] * scale)))
         if resized.shape[0] < tH or resized.shape[1] < tW:
           break
