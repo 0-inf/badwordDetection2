@@ -21,6 +21,15 @@ font_list_raw = {
   "Gurmukhi":"NotoSansGurmukhi.ttf",
   "Gujarati":"NotoSansGujarati.ttf",
   "Oriya":"NotoSansOriya.ttf",
+  "Tamil":"NotoSansTamil.ttf",
+  "Telugu":"NotoSansTelugu.ttf",
+  "Kannada":"NotoSansKannada.ttf",
+  "Malayalam":"NotoSansMalayalam.ttf",
+  "Sinhala":"NotoSansSinhala.ttf",
+  "Thai":"NotoSansThai.ttf",
+  "Lao":"NotoSansLao.ttf",
+  "Myanmar":"NotoSansMyanmar.ttf",
+  "Georgian":"NotoSansGeorgian.ttf",
 }
 font_list = {}
 for key, value in font_list_raw.items():

@@ -139,6 +139,33 @@ def select_fontfile(str:str):
   # Oriya
   elif uni >= 2816 and uni <= 2943:
     return "Oriya"
+  # Tamil
+  elif uni >= 2944 and uni <= 3071:
+    return "Tamil"
+  # Telugu
+  elif uni >= 3072 and uni <= 3199:
+    return "Telugu"
+  # Kannada
+  elif uni >= 3200 and uni <= 3327:
+    return "Kannada"
+  # Malayalam
+  elif uni >= 3328 and uni <= 3455:
+    return "Malayalam"
+  # Sinhala
+  elif uni >= 3456 and uni <= 3583:
+    return "Sinhala"
+  # Thai
+  elif uni >= 3584 and uni <= 3711:
+    return "Thai"
+  # Lao
+  elif uni >= 3712 and uni <= 3839:
+    return "Lao"
+  # Myanmar
+  elif uni >= 4096 and uni <= 4255:
+    return "Myanmar"
+  # Georgian
+  elif uni >= 4256 and uni <= 4351:
+    return "Georgian"
   # else
   else:
     return "default"
