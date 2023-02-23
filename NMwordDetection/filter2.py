@@ -14,6 +14,15 @@ class filter2():
                        'ㅣ':300,'ㅟ':301,'ㅔ':310,'ㅚ':311,'ㅐ':320,'ㅡ':301,'ㅜ':302,'ㅓ':311,'ㅗ':312,'ㅏ':321,
                        'ㅕ':311.5,'ㅑ':320.5,'ㅛ':312.5,'ㅠ':302.5,'ㅒ':320.5,'ㅖ':310.5,'ㅢ':300.5,'ㅘ':321.5,'ㅙ':320.5,'ㅝ':311.5,'ㅞ':310.5}
     return None
+  
+  def threshold_better(self, threshold:int) -> int:
+    """
+    threshold를 더 높이는 함수입니다.
+
+    :param threshold: 현재 threshold입니다.
+    :return: 더 높은 threshold를 반환합니다.
+    """
+    return threshold*(-1*threshold*threshold+threshold+1)
 
   def detection(self, sentence:str, words:list, threshold:int) -> dict:
     """
@@ -52,4 +61,4 @@ class filter2():
       if sentence[i] in one:
         sentence = sentence[:i]+one[sentence[i]]+sentence[i+1:]
     tokenized_sentence = tools.detach_word(sentence, {"repeat":True,"pro2del":True})
-    return tools.compare_text(tokenized_sentence, tokenized_words_list, self.base_layer, threshold)
+    return tools.compare_text(tokenized_sentence, tokenized_words_list, self.base_layer, self.threshold_better(threshold))

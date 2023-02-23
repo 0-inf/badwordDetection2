@@ -24,6 +24,15 @@ class filter1():
                        'ㅕ':311.5,'ㅑ':320.5,'ㅛ':312.5,'ㅠ':302.5,'ㅒ':320.5,'ㅖ':310.5,'ㅢ':300.5,'ㅘ':321.5,'ㅙ':320.5,'ㅝ':311.5,'ㅞ':310.5}
     return None
 
+  def threshold_better(self, threshold:int) -> int:
+    """
+    threshold를 더 높이는 함수입니다.
+
+    :param threshold: 현재 threshold입니다.
+    :return: 더 높은 threshold를 반환합니다.
+    """
+    return threshold*(-1*threshold*threshold+threshold+1)
+
   def detection(self, sentence:str, words:list, threshold:int) -> list:
     """
     filter1을 이용하여 입력된 단어 리스트를 찾는 함수입니다.
@@ -43,4 +52,4 @@ class filter1():
     for i in range(0,len(tokenized_sentence)):
       if tokenized_sentence[i][0] in self.key_change_data:
         tokenized_sentence[i][0] = self.key_change_data[tokenized_sentence[i][0]]
-    return tools.compare_text(tokenized_sentence, tokenized_words_list, self.base_layer, threshold)
+    return tools.compare_text(tokenized_sentence, tokenized_words_list, self.base_layer, self.threshold_better(threshold))
