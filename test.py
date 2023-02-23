@@ -38,7 +38,6 @@ for i in range(len(data)):
     temp = target.copy()
     cv2.rectangle(temp, (loc_data[i][0],loc_data[i][1]), (loc_data[i][2],loc_data[i][3]), COLORLIST[j], cv2.FILLED)
     target = cv2.addWeighted(target, 1-(data[i][j]*0.6), temp, data[i][j]*0.6, 0)
-cv2.imwrite("C:\\Users\\seolc\\OneDrive\\ghg\\uni_text.png", target)
 cv2.imshow(f"result(times:{결과['run_time']})", target)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
