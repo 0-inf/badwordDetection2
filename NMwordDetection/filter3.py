@@ -30,6 +30,13 @@ font_list_raw = {
   "Lao":"NotoSansLao.ttf",
   "Myanmar":"NotoSansMyanmar.ttf",
   "Georgian":"NotoSansGeorgian.ttf",
+  "Ethiopic":"NotoSansEthiopic.ttf",
+  "Cherokee":"NotoSansCherokee.ttf",
+  "CanadianAboriginal":"NotoSansCanadianAboriginal.ttf",
+  "Ogham":"NotoSansOgham.ttf",
+  "Runic":"NotoSansRunic.ttf",
+  "Khmer":"NotoSansKhmer.ttf",
+  "Mongolian":"NotoSansMongolian.ttf",
 }
 font_list = {}
 for key, value in font_list_raw.items():

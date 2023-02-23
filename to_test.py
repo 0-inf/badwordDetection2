@@ -10,7 +10,7 @@ while True:
             string+=chr(a+40*i+j)
         string+='\n'
     text_to_image("tmp", string)
-    cv2.imshow(f"test{hex(a)}~{hex(a+400)}", cv2.imread(f"{getcwd()}\\NMwordDetection\\temp\\tmp.png"))
+    cv2.imshow(f"test{hex(a)}({a})~{hex(a+400)}({a+400})", cv2.imread(f"{getcwd()}\\NMwordDetection\\temp\\tmp.png"))
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     a+=400

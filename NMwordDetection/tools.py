@@ -166,6 +166,27 @@ def select_fontfile(str:str):
   # Georgian
   elif uni >= 4256 and uni <= 4351:
     return "Georgian"
+  # Ethiopic
+  elif uni >= 4608 and uni <= 4991:
+    return "Ethiopic"
+  # Cherokee
+  elif uni >= 5024 and uni <= 5119:
+    return "Cherokee"
+  # Canadian Aboriginal
+  elif uni >= 5120 and uni <= 5759:
+    return "CanadianAboriginal"
+  # Ogham
+  elif uni >= 5760 and uni <= 5791:
+    return "Ogham"
+  # Runic
+  elif uni >= 5792 and uni <= 5887:
+    return "Runic"
+  # Khmer
+  elif uni >= 6016 and uni <= 6143:
+    return "Khmer"
+  # Mongolian
+  elif uni >= 6144 and uni <= 6319:
+    return "Mongolian"
   # else
   else:
     return "default"
