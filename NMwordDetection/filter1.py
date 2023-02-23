@@ -43,4 +43,4 @@ class filter1():
     for i in range(0,len(tokenized_sentence)):
       if tokenized_sentence[i][0] in self.key_change_data:
         tokenized_sentence[i][0] = self.key_change_data[tokenized_sentence[i][0]]
-    return tools.compare_text(tokenized_sentence, tokenized_words_list, self.base_layer, 0.6)
+    return tools.compare_text(tokenized_sentence, tokenized_words_list, self.base_layer, threshold)

@@ -52,4 +52,4 @@ class filter2():
       if sentence[i] in one:
         sentence = sentence[:i]+one[sentence[i]]+sentence[i+1:]
     tokenized_sentence = tools.detach_word(sentence, {"repeat":True,"pro2del":True})
-    return tools.compare_text(tokenized_sentence, tokenized_words_list, self.base_layer, 0.6)
+    return tools.compare_text(tokenized_sentence, tokenized_words_list, self.base_layer, threshold)
