@@ -187,6 +187,12 @@ def select_fontfile(str:str):
   # Mongolian
   elif uni >= 6144 and uni <= 6319:
     return "Mongolian"
+  # Symbols
+  if uni >= 8544 and uni <= 9450:
+    return "Symbols"
+  # Symbol2
+  elif uni >= 9632 and uni <= 10495:
+    return "Symbol2"
   # else
   else:
     return "default"

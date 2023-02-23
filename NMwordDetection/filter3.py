@@ -37,6 +37,8 @@ font_list_raw = {
   "Runic":"NotoSansRunic.ttf",
   "Khmer":"NotoSansKhmer.ttf",
   "Mongolian":"NotoSansMongolian.ttf",
+  "Symbols":"NotoSansSymbols.ttf",
+  "Symbol2":"NotoSansSymbols2.ttf",
 }
 font_list = {}
 for key, value in font_list_raw.items():
